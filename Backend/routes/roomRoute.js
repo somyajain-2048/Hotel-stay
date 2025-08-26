@@ -2,7 +2,8 @@ import express from "express";
 
 import upload from "../middleware/uploadmiddleware.js";
 import { protect } from "../middleware/authmiddleware.js";
-import createRoom, {
+import {
+  createRoom,
   getOwnerRooms,
   getRooms,
   toggleRoomAvailability,

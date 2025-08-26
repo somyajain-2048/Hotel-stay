@@ -1,7 +1,8 @@
-import React from "react";
+import { React, useState } from "react";
 import { assets } from "../assets/assets";
 import { cities } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
 
 const HotelReg = () => {
   const { setShowHotelReg, axios, getToken, setIsOwner } = useAppContext();
@@ -18,10 +19,22 @@ const HotelReg = () => {
         { name, contact, address, city },
         { headers: { Authorization: `Bearer ${await getToken()}` } }
       );
-    } catch (error) {}
+      if (data.success) {
+        toast.success(data.message);
+        setIsOwner(true);
+        setShowHotelReg(false);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-100 flex items-center justify-center bg-black/70">
+    <div
+      className="fixed top-0 bottom-0 left-0 right-0 z-100 flex items-center justify-center bg-black/70"
+      onClick={() => setShowHotelReg(false)}
+    >
       <form
         onSubmit={onSubmitHandler}
         onClick={(e) => e.stopPropagation()}
