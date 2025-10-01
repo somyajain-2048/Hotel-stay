@@ -4,7 +4,8 @@ import Hotel from "../models/Hotel.js";
 export const registerHotel = async (req, res) => {
   try {
     const { name, address, city, contact } = req.body;
-    const owner = req.user_id;
+    // const owner = req.user_id;
+    const owner = req.userId;
 
     // check if hotel is already registered
     const hotel = await Hotel.findOne({ owner });

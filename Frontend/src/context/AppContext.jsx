@@ -19,8 +19,14 @@ export const AppProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
+      const token = await getToken();
+      if (!token) {
+        console.warn("No token found, user not authenticated yet.");
+        return;
+      }
+
       const { data } = await axios.get("/api/user", {
-        headers: { Authorization: `Bearer ${await getToken()}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       if (data.success) {
         setIsOwner(data.role === "hotelOwner");

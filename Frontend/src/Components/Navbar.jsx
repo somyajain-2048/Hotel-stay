@@ -181,7 +181,9 @@ const Navbar = () => {
 
         {user && (
           <button
-            className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all"
+            className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
+              isScrolled ? "text-black" : "text-white"
+            } transition-all`}
             onClick={() =>
               isOwner ? navigate("/owner") : setShowHotelReg(true)
             }

@@ -1,6 +1,5 @@
-import { React, useState } from "react";
-import { assets } from "../assets/assets";
-import { cities } from "../assets/assets";
+import { useState } from "react";
+import { assets, cities } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
 
@@ -14,6 +13,9 @@ const HotelReg = () => {
   const onSubmitHandler = async (event) => {
     try {
       event.preventDefault();
+      const token = await getToken();
+      console.log("Token being sent:", token);
+
       const { data } = await axios.post(
         `/api/hotels/`,
         { name, contact, address, city },
@@ -67,7 +69,7 @@ const HotelReg = () => {
               onChange={(e) => setName(e.target.value)}
               value={name}
               placeholder="Type here..."
-              className="border bordeer-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light"
+              className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light"
               required
             />
           </div>
