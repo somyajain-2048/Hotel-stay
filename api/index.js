@@ -132,17 +132,20 @@ import { clerkmiddlware } from "@clerk/express";
 import clerkWebhooks from "../Backend/controllers/ClerkWebhooks";
 connectDB();
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(clerkmiddlware());
 
 app.use("/api/clerk", clerkWebhooks);
 app.get("/", (req, res) => {
-  res.send("apiis working");
+  res.send("api is working");
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`server running on port ${PORT}`));
 // ✅ Export app for Vercel serverless function
 export default app;
